@@ -20,6 +20,7 @@ Patch0:		grisbi-0.5.8-browser.patch
 Patch1:		grisbi-0.5.8-fixbuild.patch
 
 Group:		Office
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	libgnomeui2-devel libgdk_pixbuf2.0-devel libgnomeprint-devel
 BuildRequires:	ImageMagick gtk2-devel libofx-devel hevea
 Requires: tetex-latex
