@@ -50,18 +50,6 @@ install -m644 %{SOURCE11} -D $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
 install -m644 %{SOURCE12} -D $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
 install -m644 %{SOURCE13} -D $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 
-install -d $RPM_BUILD_ROOT%{_menudir}
-cat > $RPM_BUILD_ROOT%{_menudir}/%{name} <<EOF
-?package(%{name}):\
-command="%{name}"\
-needs="x11" \
-icon="%{name}.png"\
-section="More Applications/Finances"\
-title="Grisbi"\
-icon="office_section.png"\
-longtitle="Personnal Finances Manager" \
-xdg="true"
-EOF
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
@@ -97,7 +85,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 #%_iconsdir/*.png
 %{_datadir}/mime-info/*
-%{_menudir}/%{name}
 %{_miconsdir}/%{name}.png
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
