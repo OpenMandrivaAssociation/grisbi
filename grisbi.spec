@@ -1,6 +1,8 @@
+%define Werror_cflags %nil
+
 %define	name	grisbi
 %define	version	0.5.9
-%define	release	%mkrel 3
+%define	release	%mkrel 4
 
 
 Summary:	Personal finance manager
@@ -27,7 +29,7 @@ Group:		Office
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	libgnomeui2-devel libgdk_pixbuf2.0-devel libgnomeprint-devel
 BuildRequires:	imagemagick gtk2-devel libofx-devel hevea
-BuildRequires:	gettext-devel 
+BuildRequires:	gettext-devel
 Requires: tetex-latex
 Requires: tetex-dvips
 
