@@ -2,7 +2,7 @@
 
 %define	name	grisbi
 %define	version	0.5.9
-%define	release	%mkrel 4
+%define	release	%mkrel 5
 
 
 Summary:	Personal finance manager
