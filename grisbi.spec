@@ -20,7 +20,6 @@ Source13:	%{name}-48x48.png
 Patch1:		grisbi-0.5.8-fixbuild.patch
 # (fc) 0.5.9-2mdv fix build when as-needed is enabled
 Patch2:		grisbi-0.5.9-asneeded.patch
-# (fc) 0.5.9-2mdv fix help path
 Patch3:		grisbi-0.6.0-helppath.patch
 
 Group:		Office
@@ -28,42 +27,45 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	libgnomeui2-devel libgdk_pixbuf2.0-devel libgnomeprint-devel
 BuildRequires:	imagemagick gtk2-devel libofx-devel hevea
 BuildRequires:	gettext-devel
-#Requires:	tetex-latex
-#Requires:	tetex-dvips
+Requires:	tetex-latex
+Requires:	tetex-dvips
 
 %description
 Grisbi helps you to manage your personal finance with Linux.
 
 %prep
-%setup -q -n %{name}-%{version}rc1.%{svn}
+%setup -q -n %{name}-%{version}rc1.%{svn} -a 1
 
 # fix buggy symlink:
 ln -fs /usr/share/automake-1.11/depcomp depcomp
 
-#%patch1 -p1 -b .fixbuild
+%patch1 -p1 -b .fixbuild
 #%patch2 -p1 -b .asneeded
-#%patch3 -p0 -b .helppath
+%patch3 -p0 -b .helppath
+
+# add ChangeLog to statify automake
+touch ChangeLog
 
 # needed by patches 1, 2 & 3
-#cp -f %{_datadir}/gettext/config.rpath .
-#aclocal -I macros
-#automake --add-missing
-#autoconf
+cp -f %{_datadir}/gettext/config.rpath .
+aclocal -I macros
+automake --add-missing
+autoconf
 
 %build
 %configure2_5x
 %make
 
-#make -C grisbi-manuel-0.5.1/src html_img
+make -C grisbi-manuel-0.5.1/src html_img
 
 %install
 rm -rf %{buildroot}
 %makeinstall_std
 
-#mkdir -p  $RPM_BUILD_ROOT%{_datadir}/grisbi/help/fr/
+mkdir -p  %{buildroot}%{_datadir}/grisbi/help/fr/
 
-#cp -f -r grisbi-manuel-0.5.1/src/fr/* $RPM_BUILD_ROOT%{_datadir}/grisbi/help/fr/
-#cp -f -r grisbi-manuel-0.5.1/src/image $RPM_BUILD_ROOT%{_datadir}/grisbi/help/
+cp -fr grisbi-manuel-0.5.1/src/fr/* %{buildroot}%{_datadir}/grisbi/help/fr/
+cp -fr grisbi-manuel-0.5.1/src/image %{buildroot}%{_datadir}/grisbi/help/
 
 install -m644 %{SOURCE11} -D %{buildroot}%{_miconsdir}/%{name}.png
 install -m644 %{SOURCE12} -D %{buildroot}%{_iconsdir}/%{name}.png
@@ -93,6 +95,7 @@ rm -rf %{buildroot}
 %{_bindir}/*
 %{_datadir}/grisbi/tips.txt
 %{_datadir}/grisbi/categories/*
+%{_datadir}/grisbi/help
 %{_datadir}/locale/*/LC_MESSAGES/*-tips.mo
 %{_datadir}/pixmaps/*
 %{_datadir}/applications/*
