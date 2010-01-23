@@ -28,8 +28,8 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	libgnomeui2-devel libgdk_pixbuf2.0-devel libgnomeprint-devel
 BuildRequires:	imagemagick gtk2-devel libofx-devel hevea
 BuildRequires:	gettext-devel
-Requires:	tetex-latex
-Requires:	tetex-dvips
+#Requires:	tetex-latex
+#Requires:	tetex-dvips
 
 %description
 Grisbi helps you to manage your personal finance with Linux.
