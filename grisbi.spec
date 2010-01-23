@@ -1,9 +1,8 @@
-#define Werror_cflags %nil
 
 %define	name	grisbi
 %define	version	0.6.0
-%define	release	%mkrel -c rc1.%svn 2
-%define svn 20091229
+%define	release	%mkrel -c rc1.%svn 3
+%define svn	20091229
 
 Name:		%{name}
 Summary:	Personal finance manager
@@ -68,20 +67,13 @@ install -m644 %{SOURCE11} -D %{buildroot}%{_miconsdir}/%{name}.png
 install -m644 %{SOURCE12} -D %{buildroot}%{_iconsdir}/%{name}.png
 install -m644 %{SOURCE13} -D %{buildroot}%{_liconsdir}/%{name}.png
 
-
-mkdir -p %{buildroot}%{_datadir}/applications
-cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
-[Desktop Entry]
-Name=Grisbi
-Comment=Personnal finances manager
-Exec=%{name}
-Icon=office_section
-Terminal=false
-Type=Application
-Categories=X-MandrivaLinux-MoreApplications-Finances;Office;Finance;
-EOF
-
 %find_lang %{name}
+
+sed -i 's/grisbi.png/grisbi/' %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+desktop-file-install	--add-category=X-MandrivaLinux-MoreApplications-Finance \
+			--dir %{buildroot}%{_datadir}/applications \
+			%{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %clean
 rm -rf %{buildroot}
