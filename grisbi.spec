@@ -2,7 +2,7 @@
 
 %define	name	grisbi
 %define	version	0.6.0
-%define	release	%mkrel -c rc1.%svn 1
+%define	release	%mkrel -c rc1.%svn 2
 %define svn 20091229
 
 Name:		%{name}
@@ -43,14 +43,11 @@ ln -fs /usr/share/automake-1.11/depcomp depcomp
 #%patch2 -p1 -b .asneeded
 %patch3 -p0 -b .helppath
 
-# add ChangeLog to statify automake
-touch ChangeLog
-
 # needed by patches 1, 2 & 3
-cp -f %{_datadir}/gettext/config.rpath .
-aclocal -I macros
-automake --add-missing
-autoconf
+#cp -f %{_datadir}/gettext/config.rpath .
+#aclocal -I macros
+#automake --add-missing
+#autoconf
 
 %build
 %configure2_5x
