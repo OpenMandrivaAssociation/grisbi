@@ -1,8 +1,6 @@
-
 %define	name	grisbi
 %define	version	0.6.0
-%define	release	%mkrel -c rc1.%svn 3
-%define svn	20091229
+%define	release	%mkrel -c rc2 1
 
 Name:		%{name}
 Summary:	Personal finance manager
@@ -10,7 +8,7 @@ Version:	%{version}
 Release:	%{release}
 License:	GPLv2
 Url:		http://www.grisbi.org/
-Source0:	http://switch.dl.sourceforge.net/sourceforge/grisbi/%{name}-%{version}rc1.%{svn}.tar.bz2
+Source0:	http://switch.dl.sourceforge.net/sourceforge/grisbi/%{name}-%{version}rc2.tar.bz2
 Source1:	grisbi-manuel-0.5.1.tar.bz2
 Source11:	%{name}-16x16.png
 Source12:	%{name}-32x32.png
@@ -34,10 +32,7 @@ Requires:	tetex-dvips
 Grisbi helps you to manage your personal finance with Linux.
 
 %prep
-%setup -q -n %{name}-%{version}rc1.%{svn} -a 1
-
-# fix buggy symlink:
-ln -fs /usr/share/automake-1.11/depcomp depcomp
+%setup -q -n %{name}-%{version}rc2 -a 1
 
 %patch1 -p1 -b .fixbuild
 #%patch2 -p1 -b .asneeded
