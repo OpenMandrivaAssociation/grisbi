@@ -1,6 +1,6 @@
 %define	name	grisbi
 %define	version	0.6.0
-%define	release	%mkrel -c rc2 3
+%define	release	%mkrel -c rc2 4
 
 Name:		%{name}
 Summary:	Personal finance manager
@@ -17,6 +17,7 @@ Source13:	%{name}-48x48.png
 Patch1:		grisbi-0.5.8-fixbuild.patch
 # (fc) 0.5.9-2mdv fix build when as-needed is enabled
 Patch2:		grisbi-0.6.0-asneeded.patch
+Patch3:		grisbi-0.6.0rc2-fix-plugins-location.patch
 Group:		Office
 BuildRequires:	libgnomeui2-devel libgdk_pixbuf2.0-devel libgnomeprint-devel
 BuildRequires:	gtk2-devel
@@ -37,6 +38,7 @@ Grisbi helps you to manage your personal finance with Linux.
 
 %patch1 -p1 -b .fixbuild
 %patch2 -p1 -b .asneeded
+%patch3 -p1 -b .plugins
 
 # needed by patches 1, 2 & 3
 export AUTOMAKE="automake --foreign"
