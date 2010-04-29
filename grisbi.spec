@@ -1,6 +1,6 @@
 %define	name	grisbi
 %define	version	0.6.0
-%define	release	%mkrel -c rc2 4
+%define	release	%mkrel -c rc2 5
 
 Name:		%{name}
 Summary:	Personal finance manager
@@ -10,24 +10,21 @@ License:	GPLv2
 Url:		http://www.grisbi.org/
 Source0:	http://switch.dl.sourceforge.net/sourceforge/grisbi/%{name}-%{version}rc2.tar.bz2
 Source1:	grisbi-manuel-0.5.1.tar.bz2
-Source11:	%{name}-16x16.png
-Source12:	%{name}-32x32.png
-Source13:	%{name}-48x48.png
 # (fc) 0.5.8-2mdk fix doc build
 Patch1:		grisbi-0.5.8-fixbuild.patch
 # (fc) 0.5.9-2mdv fix build when as-needed is enabled
 Patch2:		grisbi-0.6.0-asneeded.patch
 Patch3:		grisbi-0.6.0rc2-fix-plugins-location.patch
 Group:		Office
-BuildRequires:	libgnomeui2-devel libgdk_pixbuf2.0-devel libgnomeprint-devel
+BuildRequires:	libgnomeui2-devel
+BuildRequires:	libgdk_pixbuf2.0-devel
+BuildRequires:	libgnomeprint-devel
 BuildRequires:	gtk2-devel
 BuildRequires:	libofx-devel
 BuildRequires:	gettext-devel
 BuildRequires:	hevea
 BuildRequires:	imagemagick
 BuildRequires:	desktop-file-utils
-Requires:	tetex-latex
-Requires:	tetex-dvips
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
@@ -63,9 +60,13 @@ install -d -m 755  %{buildroot}%{_docdir}/grisbi
 cp -fr grisbi-manuel-0.5.1/src/fr %{buildroot}%{_docdir}/grisbi
 cp -fr grisbi-manuel-0.5.1/src/image %{buildroot}%{_docdir}/grisbi
 
-install -m644 %{SOURCE11} -D %{buildroot}%{_miconsdir}/%{name}.png
-install -m644 %{SOURCE12} -D %{buildroot}%{_iconsdir}/%{name}.png
-install -m644 %{SOURCE13} -D %{buildroot}%{_liconsdir}/%{name}.png
+install -d -m 755 %{buildroot}%{_liconsdir}
+install -d -m 755 %{buildroot}%{_iconsdir}
+install -d -m 755 %{buildroot}%{_miconsdir}
+install -m 644 pixmaps/grisbi.png %{buildroot}%{_liconsdir}/grisbi.png
+convert pixmaps/grisbi.png -resize 32x32 %{buildroot}%{_iconsdir}/grisbi.png
+convert pixmaps/grisbi.png -resize 16x16 %{buildroot}%{_miconsdir}/grisbi.png
+
 
 %find_lang %{name}
 
