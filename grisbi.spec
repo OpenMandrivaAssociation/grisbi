@@ -1,6 +1,6 @@
 %define	name	grisbi
 %define	version	0.6.0
-%define	release	%mkrel -c rc2 5
+%define	release	%mkrel 1
 
 Name:		%{name}
 Summary:	Personal finance manager
@@ -8,13 +8,10 @@ Version:	%{version}
 Release:	%{release}
 License:	GPLv2
 Url:		http://www.grisbi.org/
-Source0:	http://switch.dl.sourceforge.net/sourceforge/grisbi/%{name}-%{version}rc2.tar.bz2
+Source0:	http://switch.dl.sourceforge.net/sourceforge/grisbi/%{name}-%{version}.tar.bz2
 Source1:	grisbi-manuel-0.5.1.tar.bz2
 # (fc) 0.5.8-2mdk fix doc build
 Patch1:		grisbi-0.5.8-fixbuild.patch
-# (fc) 0.5.9-2mdv fix build when as-needed is enabled
-Patch2:		grisbi-0.6.0-asneeded.patch
-Patch3:		grisbi-0.6.0rc2-fix-plugins-location.patch
 Group:		Office
 BuildRequires:	libgnomeui2-devel
 BuildRequires:	libgdk_pixbuf2.0-devel
@@ -31,15 +28,13 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}
 Grisbi helps you to manage your personal finance with Linux.
 
 %prep
-%setup -q -n %{name}-%{version}rc2 -a 1
+%setup -q -n %{name}-%{version} -a 1
 
 %patch1 -p1 -b .fixbuild
-%patch2 -p1 -b .asneeded
-%patch3 -p1 -b .plugins
 
 # needed by patches 1, 2 & 3
-export AUTOMAKE="automake --foreign"
-autoreconf -i -f -I macros
+#export AUTOMAKE="automake --foreign"
+#autoreconf -i -f -I macros
 #cp -f %{_datadir}/gettext/config.rpath .
 #aclocal -I macros --force
 #automake --add-missing --foreign
