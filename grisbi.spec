@@ -9,9 +9,6 @@ Release:	%{release}
 License:	GPLv2
 Url:		http://www.grisbi.org/
 Source0:	http://switch.dl.sourceforge.net/sourceforge/grisbi/%{name}-%{version}.tar.bz2
-Source1:	grisbi-manuel-0.5.1.tar.bz2
-# (fc) 0.5.8-2mdk fix doc build
-Patch1:		grisbi-0.5.8-fixbuild.patch
 Group:		Office
 BuildRequires:	gtk2-devel
 BuildRequires:	libofx-devel
@@ -25,24 +22,15 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}
 Grisbi helps you to manage your personal finance with Linux.
 
 %prep
-%setup -qn %{name}-%{version} -a 1
-
-%patch1 -p1 -b .fixbuild
+%setup -qn %{name}-%{version}
 
 %build
 %configure2_5x --with-plugins
 %make
 
-make -C grisbi-manuel-0.5.1/src html_img
-
 %install
 rm -rf %{buildroot}
 %makeinstall_std
-
-install -d -m 755  %{buildroot}%{_docdir}/grisbi
-
-cp -fr grisbi-manuel-0.5.1/src/fr %{buildroot}%{_docdir}/grisbi
-cp -fr grisbi-manuel-0.5.1/src/image %{buildroot}%{_docdir}/grisbi
 
 install -d -m 755 %{buildroot}%{_liconsdir}
 install -d -m 755 %{buildroot}%{_iconsdir}
@@ -50,7 +38,6 @@ install -d -m 755 %{buildroot}%{_miconsdir}
 install -m 644 pixmaps/grisbi.png %{buildroot}%{_liconsdir}/grisbi.png
 convert pixmaps/grisbi.png -resize 32x32 %{buildroot}%{_iconsdir}/grisbi.png
 convert pixmaps/grisbi.png -resize 16x16 %{buildroot}%{_miconsdir}/grisbi.png
-
 
 %find_lang %{name}
 
