@@ -1,6 +1,6 @@
 %define	name	grisbi
-%define	version	0.6.0
-%define	release	%mkrel 2
+%define	version	0.8.5
+%define	release	%mkrel 1
 
 Name:		%{name}
 Summary:	Personal finance manager
@@ -13,32 +13,20 @@ Source1:	grisbi-manuel-0.5.1.tar.bz2
 # (fc) 0.5.8-2mdk fix doc build
 Patch1:		grisbi-0.5.8-fixbuild.patch
 Group:		Office
-BuildRequires:	libgnomeui2-devel
-BuildRequires:	libgdk_pixbuf2.0-devel
-BuildRequires:	libgnomeprint-devel
 BuildRequires:	gtk2-devel
 BuildRequires:	libofx-devel
 BuildRequires:	gettext-devel
-BuildRequires:	hevea
 BuildRequires:	imagemagick
-BuildRequires:	desktop-file-utils
+BuildRequires:	openssl-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 Grisbi helps you to manage your personal finance with Linux.
 
 %prep
-%setup -q -n %{name}-%{version} -a 1
+%setup -qn %{name}-%{version} -a 1
 
 %patch1 -p1 -b .fixbuild
-
-# needed by patches 1, 2 & 3
-#export AUTOMAKE="automake --foreign"
-#autoreconf -i -f -I macros
-#cp -f %{_datadir}/gettext/config.rpath .
-#aclocal -I macros --force
-#automake --add-missing --foreign
-#autoconf
 
 %build
 %configure2_5x --with-plugins
@@ -68,11 +56,6 @@ convert pixmaps/grisbi.png -resize 16x16 %{buildroot}%{_miconsdir}/grisbi.png
 sed -i 's/grisbi.png/grisbi/' \
     %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-desktop-file-install \
-    --add-category=X-MandrivaLinux-MoreApplications-Finance \
-    --dir %{buildroot}%{_datadir}/applications \
-    %{buildroot}%{_datadir}/applications/%{name}.desktop
-
 %clean
 rm -rf %{buildroot}
 
@@ -82,7 +65,6 @@ rm -rf %{buildroot}
 %{_bindir}/*
 %{_libdir}/%{name}
 %{_datadir}/grisbi
-%{_datadir}/locale/*/LC_MESSAGES/*-tips.mo
 %{_datadir}/pixmaps/*
 %{_datadir}/applications/*
 %{_mandir}/man1/*
