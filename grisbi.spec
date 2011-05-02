@@ -18,6 +18,7 @@ BuildRequires:	libofx-devel
 BuildRequires:	gettext-devel
 BuildRequires:	imagemagick
 BuildRequires:	openssl-devel
+BuildRequires:	intltool
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
